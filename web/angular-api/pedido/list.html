@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>DWM 2015</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--<meta http-equiv="refresh" content="30">-->
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/datatables.bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap-table.css">
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/jquery.datatables.min.js"></script>
+        <script src="../js/bootstrap.datatables.min.js"></script>
+        <script src="../js/bootstrap-table.js"></script>
+        <script src="../js/angular.js"></script>
+        <script src="../js/pedidoCtrl.js"></script>        
+    </head>
+    <body ng-app="lanches">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="../../angular-api/cliente/list.html">Gerenciar Clientes</a></li>
+                        <li><a href="../../angular-api/materiaPrima/list.html">Gerenciar Materias Prima</a></li>
+                        <li><a href="../../angular-api/Produto/list.html">Gerenciar Produto</a></li>
+                        <li class="active"><a href="../../angular-api/pedido/list.html">Gerenciar Pedido</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav> 
+        <div class="container" ng-controller="pedidoCtrl">
+            <h2>Pedidos Lanche</h2><br/>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#tabela" ng-click="limparPedido()">Gerenciamento de Pedidos</a></li> 
+                <li><a data-toggle="tab" href="#formPedido">Cadastro Pedido</a></li>                
+            </ul>
+            <div class="tab-content">
+                <div id="tabela" class="tab-pane fade in active" ><br/><br/>
+                    <table id="tabelaAngular" class="table table-striped table-bordered table-responsive"
+                           cellspacing="0" width="100%" at-table at-paginated at-list="pedidos" at-config="config">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Data do Pedido</th>
+                                <th>Cliente</th> 
+                                <th>Data Entrega</th>
+                                <th>Valor Total</th>
+                                <th>Data Cancelamento</th>
+                                <th>Atualizar</th>
+                                <th>Finalizar</th>
+                                <th>Cancelar</th>
+                                <th>Visualizar</th>
+                            </tr>
+                        </thead> 
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Data do Pedido</th>
+                                <th>Cliente</th> 
+                                <th>Data Entrega</th>
+                                <th>Valor Total</th>
+                                <th>Data Cancelamento</th>
+                                <th>Atualizar</th>
+                                <th>Finalizar</th>
+                                <th>Cancelar</th>
+                                <th>Visualizar</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr ng-repeat="c in pedidos">
+                                <td at-implicit at-sortable width="150" at-initial-sorting="asc">{{ c.id }}</td>
+                                <td at-implicit at-sortable width="150">{{c.dataPedido | date:"dd/MM/yyyy 'as' h:mma"}}</td>
+                                <td at-implicit at-sortable>{{ c.cliente.nome }}/{{c.cliente.cidade}}</td>
+                                <td at-implicit at-sortable>{{c.dataEntrega | date:"dd/MM/yyyy 'as' h:mma"}}</td>
+                                <td at-implicit at-sortable>{{ c.valorTotal | currency:"R$" }}</td>
+                                <td at-implicit at-sortable>{{c.dataCancelamento | date:"dd/MM/yyyy 'as' h:mma"}}</td>
+                                <td>
+                                    <p ng-show="esconderComandos(c)">
+                                        <a ng-click="update(c.id)" href="#" class="btn btn-danger btn-small">
+                                            <span class="glyphicon glyphicon-edit" title="Atualizar"></span>
+                                        </a>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p ng-show="esconderComandos(c)">
+                                        <a ng-click="finalizar(c)" href="#" class="btn btn-danger btn-small">
+                                            <span class="glyphicon glyphicon-apple" title="Finalizar"></span>
+                                        </a>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p ng-show="esconderComandos(c)">
+                                        <a ng-click="delete(c)" href="#" class="btn btn-danger btn-small">
+                                            <span class="glyphicon glyphicon-remove" title="Deletar"></span>
+                                        </a>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        <a ng-click="visualizar(c)" href="#" class="btn btn-danger btn-small">
+                                            <span class="glyphicon glyphicon-bell" title="Vosializar"></span>
+                                        </a>
+                                    </p>
+                                </td>
+                            </tr>                            
+                        </tbody>
+                    </table>
+                    <at-pagination at-list="pedidos" at-config="config"></at-pagination>
+                </div>
+                <div id="formPedido" class="tab-pane fade">
+                    <br/><br/>
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form" action="#">
+                            <input type="hidden" value="{{pedidos.id}}" ng-model="pedidos.id" />
+                            <div class="form-group" ng-if="pedido.dataPedido">
+                                <label for="dataPedido" class="col-sm-2 control-label">Data do Pedido</label>
+                                <div class="col-sm-10">
+                                    {{pedido.dataPedido | date:"dd/MM/yyyy 'as' h:mma"}}
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="pedido.dataCancelamento">
+                                <label for="dataCancelamento" class="col-sm-2 control-label">Data do Cancelamento</label>
+                                <div class="col-sm-10">
+                                    {{pedido.dataCancelamento | date:"dd/MM/yyyy 'as' h:mma"}}
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="pedido.dataEntrega">
+                                <label for="dataEntrega" class="col-sm-2 control-label">Data da Entrega</label>
+                                <div class="col-sm-10">
+                                    {{pedido.dataEntrega | date:"dd/MM/yyyy 'as' h:mma"}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Cliente" class="col-sm-2 control-label">Cliente</label>
+                                <div class="col-sm-10" ng-if="!flagVisualizar">
+                                    <select ng-model="pedido.cliente"
+                                            ng-options="cliente.nome for cliente in clienteOpcoes track by cliente.id">
+                                    </select>
+                                </div>
+                                <div class="col-sm-10" ng-if="flagVisualizar">
+                                    <p>{{pedido.cliente.nome}}</p>
+                                    <p>{{pedido.cliente.logradouro}},{{pedido.cliente.numero}}, {{pedido.cliente.bairro}}, {{pedido.cliente.cidade}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ItensPedido" class="col-sm-2 control-label">Itens do Pedido</label>
+                                <div class="col-sm-10" ng-if="!flagVisualizar">
+                                    <div ng-repeat="item in pedido.itensPedido">
+                                        <select ng-model="item.produto"
+                                                ng-options="produto.nome for produto in produtoOpcoes track by produto.id">
+                                        </select>
+                                        <input type="number" ng-model="item.quantidade" />
+                                    </div>
+                                    <p ng-click="addItem()">Adicionar</p>
+                                </div>
+                                <div class="col-sm-10" ng-if="flagVisualizar">
+                                    <div ng-repeat="item in pedido.itensPedido">
+                                        <p>Item {{$index + 1}},  Qtd. {{item.quantidade}}, {{item.produto.nome}}</p>
+                                        <p ng-repeat="estrutura in item.produto.estruturas">
+                                            {{estrutura.quantidade}} X {{estrutura.materiaPrima.nome}} 
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="flagVisualizar">
+                                <label for="totalPedido" class="col-sm-2 control-label">Total Pedido</label>
+                                <div class="col-sm-10">
+                                    {{ pedido.valorTotal | currency:"R$" }}
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="!flagVisualizar">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" ng-click="save(pedido)" class="btn btn-default btn-info">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>    
+            </div>
+        </div>        
+    </body>
+</html>

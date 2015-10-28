@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>DWM 2015</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--<meta http-equiv="refresh" content="30">-->
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/datatables.bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap-table.css">
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/jquery.datatables.min.js"></script>
+        <script src="../js/bootstrap.datatables.min.js"></script>
+        <script src="../js/bootstrap-table.js"></script>
+        <script src="../js/angular.min.js"></script>
+        <script src="../js/cliente-ctrl.js"></script>        
+    </head>
+    <body ng-app="lanches">
+        <div class="container">
+            <h2>Diversos</h2><br/>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#tabela">Pedidos</a></li> 
+                <!--<li><a data-toggle="tab" href="#formCliente">Cadastro Cliente</a></li>-->                  
+            </ul>
+            <div class="tab-content">
+                <div id="formPedido">
+                    <br/><br/>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Formulário</h3>
+                        </div>
+                        <div ng-controller="PedidoCtrl" class="panel-body">
+                            <form class="form-horizontal" role="form" action="#">
+                                <input type="hidden" value="{{pedido.id}}" ng-model="pedido.id" />
+                                <div class="form-group">
+                                    <label for="dataPedido" class="col-sm-2 control-label">Data</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="pedido.data" class="form-control" id="dataPedido" placeholder="Data" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nomeCliente" class="col-sm-2 control-label">Nome</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="cliente.idcliente" class="form-control" id="idCliente" placeholder="idCliente" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="DataEntrega" class="col-sm-2 control-label">Data de Entrega</label>
+                                    <div class="col-sm-10">
+                                        <input type="Date" ng-model="cliente.DataEntrega" class="form-control" id="DataEntrega" placeholder="DataEntrega" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="valorTotal" class="col-sm-2 control-label">Valor Total</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="cliente.ValorTotal" class="form-control" id="ValorTotalCliente" placeholder="ValorTotal" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dataCancelamento" class="col-sm-2 control-label">Data Cancelamento</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="cliente.dtcancelamento" class="form-control" id="dtCancelamento" placeholder="dtCancelamento" required/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>    
+                </div>    
+            </div>
+        </div>        
+    </body>
+</html>
