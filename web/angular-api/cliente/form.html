@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>DWM 2015</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--<meta http-equiv="refresh" content="30">-->
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/datatables.bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap-table.css">
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/jquery.datatables.min.js"></script>
+        <script src="../js/bootstrap.datatables.min.js"></script>
+        <script src="../js/bootstrap-table.js"></script>
+        <script src="../js/angular.min.js"></script>
+        <script src="../js/cliente-ctrl.js"></script>        
+    </head>
+    <body ng-app="lanches">
+        <div class="container">
+            <h2>Diversos</h2><br/>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#tabela">Clientes</a></li> 
+                <!--<li><a data-toggle="tab" href="#formCliente">Cadastro Cliente</a></li>-->                  
+            </ul>
+            <div class="tab-content">
+                <div id="formCliente">
+                    <br/><br/>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Formulário</h3>
+                        </div>
+                        <div ng-controller="clienteCtrl" class="panel-body">
+                            <form class="form-horizontal" role="form" action="#">
+                                <input type="hidden" value="{{cliente.id}}" ng-model="cliente.id" />
+                                <div class="form-group">
+                                    <label for="nomeCliente" class="col-sm-2 control-label">Nome</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="cliente.nome" class="form-control" id="nomeCliente" placeholder="Nome" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefoneCliente" class="col-sm-2 control-label">Telefone</label>
+                                    <div class="col-sm-10">
+                                        <input type="telefone" ng-model="cliente.telefone" class="form-control" id="telefoneCliente" placeholder="Telefone" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="logradouroCliente" class="col-sm-2 control-label">Logradouro</label>
+                                    <div class="col-sm-10">
+                                        <input type="logradouro" ng-model="cliente.logradouro" class="form-control" id="logradouroCliente" placeholder="Logradouro" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bairroCliente" class="col-sm-2 control-label">Bairro</label>
+                                    <div class="col-sm-10">
+                                        <input type="bairro" ng-model="cliente.bairro" class="form-control" id="bairroCliente" placeholder="Bairro" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cidadeCliente" class="col-sm-2 control-label">Cidade</label>
+                                    <div class="col-sm-10">
+                                        <input type="cidade" ng-model="cliente.cidade" class="form-control" id="cidadeCliente" placeholder="Cidade" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="numeroCliente" class="col-sm-2 control-label">Número</label>
+                                    <div class="col-sm-10">
+                                        <input type="numero" ng-model="cliente.numero" class="form-control" id="numeroCliente" placeholder="Número" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" ng-click="save(cliente)" class="btn btn-default btn-info">Salvar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>    
+                </div>    
+            </div>
+        </div>        
+    </body>
+</html>

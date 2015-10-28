@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>DWM 2015</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--<meta http-equiv="refresh" content="30">-->
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/datatables.bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap-table.css">
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/jquery.datatables.min.js"></script>
+        <script src="../js/bootstrap.datatables.min.js"></script>
+        <script src="../js/bootstrap-table.js"></script>
+        <script src="../js/angular.min.js"></script>
+        <script src="../js/produto-ctrl.js"></script>        
+    </head>
+    <body ng-app="lanches">
+        <div class="container">
+            <h2>LANCHES C3 & Juliana</h2><br/>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#tabela">Produtos</a></li> 
+                <!--<li><a data-toggle="tab" href="#formCliente">Cadastro Cliente</a></li>-->                  
+            </ul>
+            <div class="tab-content">
+                <div id="formProduto">
+                    <br/><br/>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Formulário</h3>
+                        </div>
+                        <div ng-controller="produtoCtrl" class="panel-body">
+                            <form class="form-horizontal" role="form" action="#">
+                                <input type="hidden" value="{{produto.id}}" ng-model="produto.id" />
+                                <div class="form-group">
+                                    <label for="nomeProduto" class="col-sm-2 control-label">Nome</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" ng-model="produto.nome" class="form-control" id="nomeProduto" placeholder="Nome" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="valorProduto" class="col-sm-2 control-label">Valor</label>
+                                    <div class="col-sm-10">
+                                        <input type="valor" ng-model="produto.valor" class="form-control" id="valorProduto" placeholder="Valor" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" ng-click="save(produto)" class="btn btn-default btn-info">Salvar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>    
+                </div>    
+            </div>
+        </div>        
+    </body>
+</html>
