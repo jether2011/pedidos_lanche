@@ -17,15 +17,26 @@
         <script src="../js/produto-ctrl.js"></script>        
     </head>
     <body ng-app="lanches">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="../../angular-api/cliente/list.html">Gerenciar Clientes</a></li>
+                        <li><a href="../../angular-api/materiaPrima/list.html">Gerenciar Materias Prima</a></li>
+                        <li class="active"><a href="../../angular-api/Produto/list.html">Gerenciar Produto</a></li>
+                        <li><a href="../../angular-api/pedido/list.html">Gerenciar Pedido</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <div class="container" ng-controller="produtoCtrl">
-            <h2>LANCHES C3 & Juliana</h2><br/>
+            <h2>Pedidos Lanche</h2><br/>
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#tabela">Gerenciamento de Produtos</a></li> 
+                <li class="active"><a data-toggle="tab" href="#tabela" ng-click="limpar()">Gerenciamento de Produtos</a></li> 
                 <li><a data-toggle="tab" href="#formProduto">Cadastro Produto</a></li>                
             </ul>
             <div class="tab-content">
                 <div id="tabela" class="tab-pane fade in active" ><br/><br/>
-                    <br/>
                     <table id="tabelaAngular" class="table table-striped table-bordered table-responsive"
                            cellspacing="0" width="100%" at-table at-paginated at-list="produtos" at-config="config">
                         <thead>

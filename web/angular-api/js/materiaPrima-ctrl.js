@@ -3,7 +3,7 @@ var urlPath = "http://localhost:8080/lanches/api/materiaPrima/";
 
 app.controller('materiaPrimaCtrl', function ($scope, $http, $timeout) {
     $scope.materiasPrima = [];
-    $scope.materiaprima = {};
+    $scope.materiaPrima = {};
 
     $scope.loadMateriaPrima = function () {
         $http.get(urlPath, {cache: false})
@@ -15,6 +15,10 @@ app.controller('materiaPrimaCtrl', function ($scope, $http, $timeout) {
             itemsPerPage: 5,
             fillLastPage: true
         }
+    };
+
+    $scope.limpar = function() {
+        $scope.materiaPrima = {};
     };
 
     $scope.delete = function (id) {
@@ -32,20 +36,20 @@ app.controller('materiaPrimaCtrl', function ($scope, $http, $timeout) {
             url: urlPath + id,
             method: 'GET'
         }).success(function (response) {
-            $scope.materiaprima = response;
+            $scope.materiaPrima = response;
             jQuery('[href="#formMateriaPrima"]')[0].click();
         });
     };
 
-    $scope.save = function (materiaprima) {
-        var values = JSON.stringify(materiaprima);
+    $scope.save = function (materiaPrima) {
+        var values = JSON.stringify(materiaPrima);
         console.log(values);
         
         var method;
         var url;
-        if (materiaprima.id != null) {
+        if (materiaPrima.id != null) {
             method = 'PUT';
-            url = urlPath + materiaprima.id;
+            url = urlPath + materiaPrima.id;
         } else {
             method = 'POST';
             url = urlPath;
@@ -59,6 +63,7 @@ app.controller('materiaPrimaCtrl', function ($scope, $http, $timeout) {
         }).success(function (status) {
             console.log("Success: ");
             console.log(status);
+            $scope.limpar();
             jQuery('[href="#tabela"]')[0].click();
         }).error(function (status) {
             console.log("Error: ");

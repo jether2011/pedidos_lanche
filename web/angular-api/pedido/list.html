@@ -17,15 +17,26 @@
         <script src="../js/pedidoCtrl.js"></script>        
     </head>
     <body ng-app="lanches">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="../../angular-api/cliente/list.html">Gerenciar Clientes</a></li>
+                        <li><a href="../../angular-api/materiaPrima/list.html">Gerenciar Materias Prima</a></li>
+                        <li><a href="../../angular-api/Produto/list.html">Gerenciar Produto</a></li>
+                        <li class="active"><a href="../../angular-api/pedido/list.html">Gerenciar Pedido</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav> 
         <div class="container" ng-controller="pedidoCtrl">
-            <h2>Diversos</h2><br/>
+            <h2>Pedidos Lanche</h2><br/>
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#tabela" ng-click="limparPedido()">Gerenciamento de Pedidos</a></li> 
                 <li><a data-toggle="tab" href="#formPedido">Cadastro Pedido</a></li>                
             </ul>
             <div class="tab-content">
                 <div id="tabela" class="tab-pane fade in active" ><br/><br/>
-                    <br/>
                     <table id="tabelaAngular" class="table table-striped table-bordered table-responsive"
                            cellspacing="0" width="100%" at-table at-paginated at-list="pedidos" at-config="config">
                         <thead>
@@ -122,15 +133,19 @@
                             </div>
                             <div class="form-group">
                                 <label for="Cliente" class="col-sm-2 control-label">Cliente</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-10" ng-if="!flagVisualizar">
                                     <select ng-model="pedido.cliente"
                                             ng-options="cliente.nome for cliente in clienteOpcoes track by cliente.id">
                                     </select>
                                 </div>
+                                <div class="col-sm-10" ng-if="flagVisualizar">
+                                    <p>{{pedido.cliente.nome}}</p>
+                                    <p>{{pedido.cliente.logradouro}},{{pedido.cliente.numero}}, {{pedido.cliente.bairro}}, {{pedido.cliente.cidade}}</p>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="ItensPedido" class="col-sm-2 control-label">Itens do Pedido</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-10" ng-if="!flagVisualizar">
                                     <div ng-repeat="item in pedido.itensPedido">
                                         <select ng-model="item.produto"
                                                 ng-options="produto.nome for produto in produtoOpcoes track by produto.id">
@@ -139,8 +154,22 @@
                                     </div>
                                     <p ng-click="addItem()">Adicionar</p>
                                 </div>
+                                <div class="col-sm-10" ng-if="flagVisualizar">
+                                    <div ng-repeat="item in pedido.itensPedido">
+                                        <p>Item {{$index + 1}},  Qtd. {{item.quantidade}}, {{item.produto.nome}}</p>
+                                        <p ng-repeat="estrutura in item.produto.estruturas">
+                                            {{estrutura.quantidade}} X {{estrutura.materiaPrima.nome}} 
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" ng-if="flagVisualizar">
+                                <label for="totalPedido" class="col-sm-2 control-label">Total Pedido</label>
+                                <div class="col-sm-10">
+                                    {{ pedido.valorTotal | currency:"R$" }}
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="!flagVisualizar">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" ng-click="save(pedido)" class="btn btn-default btn-info">Salvar</button>
                                 </div>

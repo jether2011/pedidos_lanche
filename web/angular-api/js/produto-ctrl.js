@@ -17,6 +17,10 @@ app.controller('produtoCtrl', function ($scope, $http, $timeout) {
                 });
     };
 
+    $scope.limpar = function() {
+        $scope.produto = {};
+    };
+
     $scope.delete = function (id) {
         $http({
             url: urlPath + id,
@@ -70,6 +74,7 @@ app.controller('produtoCtrl', function ($scope, $http, $timeout) {
         }).success(function (status) {
             console.log("Success: ");
             console.log(status);
+            $scope.limpar();
             jQuery('[href="#tabela"]')[0].click();
         }).error(function (status) {
             console.log("Error: ");
